@@ -40,5 +40,20 @@ namespace Fantasy.Backend.Controllers
             await _context.SaveChangesAsync();
             return Ok(country);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> PutAsync(Country country)
+        {
+            var currentCountry = await _context.Countries.FindAsync(country.Id);
+            if (currentCountry == null)
+            {
+                return NotFound();
+            }
+            currentCountry.Name = country.Name;
+
+            _context.Countries.Update(currentCountry);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }

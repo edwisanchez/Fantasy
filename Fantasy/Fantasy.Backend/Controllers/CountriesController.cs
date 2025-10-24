@@ -55,5 +55,19 @@ namespace Fantasy.Backend.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var country = await _context.Countries.FindAsync(id);
+            if (country == null)
+            {
+                return NotFound();
+            }
+
+            _context.Remove(country);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
     }
 }
